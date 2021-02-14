@@ -12,6 +12,14 @@ git push -u origin main
 
 A new Flutter project.
 
+## Icons App
+
+- [Icons Assets](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html)
+
+myapp/ios/Runner/Assets.xcassets/AppIcon.appiconset for iOS
+
+and myapp/android/app/src/main/res for Android.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
