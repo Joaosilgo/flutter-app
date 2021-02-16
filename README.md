@@ -20,6 +20,23 @@ myapp/ios/Runner/Assets.xcassets/AppIcon.appiconset for iOS
 
 and myapp/android/app/src/main/res for Android.
 
+## How to Calculate Distance from the RSSI value of the BLE Beacon?
+
+Formula
+Distance
+
+Measured Power
+
+RSSI
+
+N (Constant depends on the Environmental factor. Range 2-4)
+
+```code
+
+Distance = 10 ^ ((Measured Power – RSSI)/(10 * N))
+
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
