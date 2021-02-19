@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BoardScreen extends StatelessWidget {
   final String texto;
@@ -183,23 +184,35 @@ Widget _HomepageWContent(BuildContext context) {
                       ],
                     ),
                     Container(
-                      height: 62.4,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(9.6),
-                          color: Color(0x10000000)),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 28.8, right: 28.8),
-                          child: Text('Explore Now >>',
-                              style: TextStyle(
-                                  fontSize: 19.2,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white)),
-                        ),
-                      ),
-                    )
+                        height: 62.4,
+                        /* decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(9.6),
+                            color: Color(0x10000000)),*/
+                        child: FlatButton(
+                          color: Color(0x10000000),
+                          onPressed: _launchURL,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 28.8, right: 28.8),
+                              child: Text('Explore Now >>',
+                                  style: TextStyle(
+                                      fontSize: 19.2,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white)),
+                            ),
+                          ),
+                        ))
                   ])
             ]),
       ));
+}
+
+_launchURL() async {
+  const url = 'https://github.com/Joaosilgo/flutter-app';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }

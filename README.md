@@ -63,6 +63,17 @@ Distance = 10 ^ ((Measured Power – RSSI)/(10 * N))
 
 [flutter_blue](https://pub.dev/packages/flutter_blue)
 
+## http
+
+For Fetching Data
+
+[http](https://pub.dev/packages/http)
+
+## url_launcher
+
+For Launching url
+[http](https://pub.dev/packages/url_launcher)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

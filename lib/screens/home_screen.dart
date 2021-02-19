@@ -178,42 +178,43 @@ class FindDevicesScreen extends StatelessWidget {
 class DeviceScreen extends StatelessWidget {
   const DeviceScreen({Key key, this.device}) : super(key: key);
   final BluetoothDevice device;
-  
-  
 
   List<Widget> _buildServiceTiles(List<BluetoothService> services) {
-   
-    return services   //.where((x) => x..uuid.toString()=='bccea50a-072b-491f-a74b-d6c041be8e97')
+    return services //.where((x) => x..uuid.toString()=='bccea50a-072b-491f-a74b-d6c041be8e97')
         .map(
           (s) => ServiceTile(
-            service: s,
-            characteristicTiles: s.characteristics   //.where((x) => x.properties.notify)
-                .map(
-                  (c) => CharacteristicTile(
-                    characteristic: c,
-                    onReadPressed: () => c.read(),
-                    onWritePressed: () async {
-                      await c.write( utf8.encode('Hey'), withoutResponse: true);
-                      
-                        await c.read();
-                    },
-                    onNotificationPressed: () async {
-                      await c.setNotifyValue(!c.isNotifying);
-                      await c.read();
-                    },
-                    descriptorTiles: c.descriptors
-                        .map(
-                          (d) => DescriptorTile(
-                            descriptor: d,
-                            onReadPressed: () => d.read(),
-                              onWritePressed: () { print('Hey'); d.write(utf8.encode('Hey'));},
-                          ),
-                        )
-                        .toList(),
-                  ),
-                )
-                .toList()
-          ),
+              service: s,
+              characteristicTiles:
+                  s.characteristics //.where((x) => x.properties.notify)
+                      .map(
+                        (c) => CharacteristicTile(
+                          characteristic: c,
+                          onReadPressed: () => c.read(),
+                          onWritePressed: () async {
+                            await c.write(utf8.encode('Hey'),
+                                withoutResponse: true);
+
+                            await c.read();
+                          },
+                          onNotificationPressed: () async {
+                            await c.setNotifyValue(!c.isNotifying);
+                            await c.read();
+                          },
+                          descriptorTiles: c.descriptors
+                              .map(
+                                (d) => DescriptorTile(
+                                  descriptor: d,
+                                  onReadPressed: () => d.read(),
+                                  onWritePressed: () {
+                                    print('Hey');
+                                    d.write(utf8.encode('Hey'));
+                                  },
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      )
+                      .toList()),
         )
         .toList();
   }
@@ -426,7 +427,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BleScreen("Scan Ble"),
     NewPageScreen("Home"),
     BoardScreen("Board"),
-    AboutScreen("About")
+    AboutScreen()
   ];
 
   @override
