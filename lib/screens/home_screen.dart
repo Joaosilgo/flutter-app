@@ -1,6 +1,11 @@
+//import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_app/screens/widgets.dart';
+import 'package:flutter_app/screens/about.dart';
+import 'package:flutter_app/screens/board.dart';
+import 'dart:convert' show utf8;
 
 class NewPageScreen extends StatelessWidget {
   final String texto;
@@ -173,20 +178,24 @@ class FindDevicesScreen extends StatelessWidget {
 class DeviceScreen extends StatelessWidget {
   const DeviceScreen({Key key, this.device}) : super(key: key);
   final BluetoothDevice device;
+  
+  
 
   List<Widget> _buildServiceTiles(List<BluetoothService> services) {
-    return services
+   
+    return services   //.where((x) => x..uuid.toString()=='bccea50a-072b-491f-a74b-d6c041be8e97')
         .map(
           (s) => ServiceTile(
             service: s,
-            characteristicTiles: s.characteristics
+            characteristicTiles: s.characteristics   //.where((x) => x.properties.notify)
                 .map(
                   (c) => CharacteristicTile(
                     characteristic: c,
                     onReadPressed: () => c.read(),
                     onWritePressed: () async {
-                      //  await c.write(_getRandomBytes(), withoutResponse: true);
-                      //  await c.read();
+                      await c.write( utf8.encode('Hey'), withoutResponse: true);
+                      
+                        await c.read();
                     },
                     onNotificationPressed: () async {
                       await c.setNotifyValue(!c.isNotifying);
@@ -197,13 +206,13 @@ class DeviceScreen extends StatelessWidget {
                           (d) => DescriptorTile(
                             descriptor: d,
                             onReadPressed: () => d.read(),
-                            //  onWritePressed: () => d.write(_getRandomBytes()),
+                              onWritePressed: () { print('Hey'); d.write(utf8.encode('Hey'));},
                           ),
                         )
                         .toList(),
                   ),
                 )
-                .toList(),
+                .toList()
           ),
         )
         .toList();
@@ -298,12 +307,13 @@ class DeviceScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.grey[400],
                         )),
-                subtitle: Text('${device.id} \n${device.runtimeType.toString()}',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[400],
-                    )),
+                subtitle:
+                    Text('${device.id} \n${device.runtimeType.toString()}',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[400],
+                        )),
                 trailing: StreamBuilder<bool>(
                   stream: device.isDiscoveringServices,
                   initialData: false,
@@ -415,8 +425,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _telas = [
     BleScreen("Scan Ble"),
     NewPageScreen("Home"),
-    NewPageScreen("Board"),
-    NewPageScreen("About")
+    BoardScreen("Board"),
+    AboutScreen("About")
   ];
 
   @override

@@ -1,8 +1,9 @@
-import 'dart:convert';
+//import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/home_screen.dart';
+import 'package:splashscreen/splashscreen.dart';
 
-import 'package:flutter_blue/flutter_blue.dart';
+//import 'package:flutter_blue/flutter_blue.dart';
 /*
 void main() => runApp(MyApp());
 
@@ -281,7 +282,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 */
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -290,17 +290,45 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ESP32 Flutter App',
-      
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xFFC6FF00),
-        accentColor: Color(0xFFEEFF41),
-        scaffoldBackgroundColor: Colors.white,
-         dividerColor: Colors.transparent
-         
-      ),
-      home: HomeScreen(),
+          primaryColor: Color(0xFFC6FF00),
+          accentColor: Color(0xFFEEFF41),
+          scaffoldBackgroundColor: Colors.white,
+          dividerColor: Colors.transparent),
+      home: AppSplash(),
     );
+  }
+}
+
+class AppSplash extends StatefulWidget {
+  @override
+  _AppSplashState createState() => new _AppSplashState();
+}
+
+class _AppSplashState extends State<AppSplash> {
+  @override
+  Widget build(BuildContext context) {
+    return new SplashScreen(
+        seconds: 7,
+        navigateAfterSeconds: new HomeScreen(),
+        title: new Text(
+          'Welcome To Flutter App',
+          style: new TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Color(0xFFEEFF41)),
+        ),
+        /* image: new Image.network(
+          'https://flutter.io/images/catalog-widget-placeholder.png'),*/
+        image: Image.asset("assets/ic_launcher.png"),
+        backgroundColor: Colors.white,
+        loaderColor: Color(0xFFEEFF41),
+        loadingText: new Text('Ble Technology',
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFFEEFF41))));
   }
 }
 

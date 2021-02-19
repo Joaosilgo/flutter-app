@@ -31,7 +31,7 @@ class ScanResultTile extends StatelessWidget {
               fontWeight: FontWeight.w500,
               color: Colors.grey[400],
             ),
-          )
+          ),
         ],
       );
     } else {
@@ -106,7 +106,7 @@ class ScanResultTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(
       dividerColor: Colors.transparent,
-      accentColor: Colors.black,
+      accentColor: Colors.grey,
     );
     return Theme(
         data: theme,
@@ -175,7 +175,8 @@ class ServiceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
 
-    if (characteristicTiles.length > 0  ) {
+    if (characteristicTiles.length > 0) {
+      print(service.characteristics);
       return Theme(
           data: theme,
           child: ExpansionTile(
@@ -185,6 +186,7 @@ class ServiceTile extends StatelessWidget {
               disabledColor: Colors.limeAccent[100],
               child: IconButton(
                 icon: Icon(Icons.maximize, color: Colors.grey),
+                onPressed: null,
               ),
             ),
             title: Column(
@@ -242,81 +244,88 @@ class CharacteristicTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<int>>(
-      stream: characteristic.value,
-      initialData: characteristic.lastValue,
-      builder: (c, snapshot) {
-        // final value = snapshot.data;
-        final value = utf8.decode(snapshot.data);
+  //  if (characteristic.properties.notify) {
+      return StreamBuilder<List<int>>(
+        stream: characteristic.value,
+        initialData: characteristic.lastValue,
+        builder: (c, snapshot) {
+          // final value = snapshot.data;
+          final value = utf8.decode(snapshot.data);
+         
+        
 
-        return ExpansionTile(
-          title: ListTile(
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Characteristic',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[400],
-                    )),
-                Text(
-                    '0x${characteristic.uuid.toString().toUpperCase().substring(4, 8)}',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey[400],
-                    )),
-                /*  style: Theme.of(context).textTheme.bodyText2.copyWith(
+          return ExpansionTile(
+            title: ListTile(
+              title: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('Characteristic',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[400],
+                      )),
+                  Text(
+                      '0x${characteristic.uuid.toString().toUpperCase().substring(4, 8)}',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey[400],
+                      )),
+                  Text(characteristic.uuid.toString().toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey[400],
+                      ))
+                  /*  style: Theme.of(context).textTheme.bodyText2.copyWith(
                           color: Theme.of(context).textTheme.caption.color)),*/
-                /*  Text('Characteristic Properties: ' +
+                  /*  Text('Characteristic Properties: ' +
                     characteristic.properties.toString()) */
+                ],
+              ),
+              subtitle: Text(value.toString(),
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.grey[500],
+                  )),
+              contentPadding: EdgeInsets.all(0.0),
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.menu_book,
+                    color: Colors.grey[400],
+                  ),
+                  onPressed: onReadPressed,
+                ),
+                IconButton(
+                  icon: Icon(Icons.celebration, color: Colors.grey[400]),
+                  onPressed: onWritePressed,
+                ),
+                IconButton(
+                  icon: Icon(
+                      characteristic.isNotifying
+                          ? Icons.notifications_active
+                          : Icons.notifications_off,
+                      semanticLabel: 'Notification',
+                      color: Colors.grey[400]),
+                  //  Theme.of(context).iconTheme.color.withOpacity(0.5)),
+                  onPressed: onNotificationPressed,
+                )
               ],
             ),
-            subtitle: Text(value.toString(),
-                style: TextStyle(
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.grey[500],
-                )),
-            contentPadding: EdgeInsets.all(0.0),
-          ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.menu_book,
-                  color: Colors.grey[400],
-                ),
-                onPressed: onReadPressed,
-              ),
-              /*
-                IconButton(
-                  icon: Icon(Icons.file_upload,
-                      color:
-                          Theme.of(context).iconTheme.color.withOpacity(0.5)),
-                  onPressed: onWritePressed,
-                ), */
-              IconButton(
-                icon: Icon(
-                    characteristic.isNotifying
-                        ? Icons.notifications_off
-                        : Icons.notifications_active,
-                    semanticLabel: 'Notification',
-                    color: Colors.grey[400]),
-                //  Theme.of(context).iconTheme.color.withOpacity(0.5)),
-                onPressed: onNotificationPressed,
-              )
-            ],
-          ),
-          children: descriptorTiles,
-        );
-      },
-    );
+            children: descriptorTiles,
+          );
+        },
+      );
+    }
   }
-}
+
 
 class DescriptorTile extends StatelessWidget {
   final BluetoothDescriptor descriptor;

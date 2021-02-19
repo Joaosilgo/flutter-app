@@ -37,6 +37,32 @@ Distance = 10 ^ ((Measured Power – RSSI)/(10 * N))
 
 ```
 
+## Unsplash Api
+
+### Eg
+
+```code
+<https://api.unsplash.com/collections/18366804/photos?&per_page=100&client_id=3hHcOZv49kdRv__cCxTxMr86y91cBB1fj3hmJovDcA8>
+
+```
+
+```code
+<https://api.unsplash.com/collections/<collection Id>/photos?&per_page=100&client_id=<Client Id>>
+
+```
+
+## splashscreen
+
+[splashscreen 1.3.5](https://pub.dev/packages/splashscreen)
+
+## share
+
+[share](https://pub.dev/packages/share)
+
+## flutter_blue
+
+[flutter_blue](https://pub.dev/packages/flutter_blue)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
