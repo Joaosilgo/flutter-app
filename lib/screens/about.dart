@@ -101,47 +101,48 @@ class _MyAboutScreenState extends State<AboutScreen> {
         ),
       ),
       _HomepageWords(context),
-      Padding(
-          padding: EdgeInsets.only(top: 120),
-          child: FutureBuilder<Data>(
-            future: data,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Column(children: <Widget>[
-                  Text(
-                    snapshot.data.first_name.toString(),
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    snapshot.data.first_name.toString(),
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    snapshot.data.degree['degree'].toString(),
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  )
-                ]);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white));
-              }
+      Center(
+          child: Padding(
+              padding: EdgeInsets.only(top: 200),
+              child: FutureBuilder<Data>(
+                future: data,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(children: <Widget>[
+                      Text(
+                        snapshot.data.first_name.toString(),
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        snapshot.data.first_name.toString(),
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        snapshot.data.degree['degree'].toString(),
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      )
+                    ]);
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}",
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white));
+                  }
 
-              // By default, show a loading spinner
-              return CircularProgressIndicator();
-            },
-          ))
+                  // By default, show a loading spinner
+                  return CircularProgressIndicator();
+                },
+              )))
       /*    
       Container(
           decoration: BoxDecoration(
@@ -153,6 +154,40 @@ class _MyAboutScreenState extends State<AboutScreen> {
     ])));
   }
 }
+
+Widget textSection = Padding(
+    padding: EdgeInsets.only(top: 135),
+    child: Container(
+      //height: 346.8,
+      margin: EdgeInsets.only(left: 28.8, right: 28.8),
+      // padding: const EdgeInsets.all(32),
+      child: RichText(
+          text: TextSpan(
+        text: 'Things that we will cover in this App:\n ',
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        children: <TextSpan>[
+          TextSpan(
+              text: '\nHow to connect your BLE device with a flutter app.',
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white)),
+          TextSpan(
+              text:
+                  '\nHow to discover the services that your BLE device provides.',
+              style:
+                  TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
+          TextSpan(
+              text: '\nHow to get data from these services/characteristics.',
+              style:
+                  TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
+          TextSpan(
+              text: '\nAnd finally how to send commands to the BLE device.',
+              style:
+                  TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
+        ],
+      )),
+    ));
 
 //example words and image to float over background
 Widget _HomepageWords(BuildContext context) {
@@ -170,14 +205,14 @@ Widget _HomepageWords(BuildContext context) {
               Text(
                 "JOÃO GOMES",
                 style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
               Text(
                 "FLUTTER APP",
                 style: TextStyle(
-                    fontSize: 50,
+                    fontSize: 42,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

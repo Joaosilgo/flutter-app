@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
+//import 'package:transparent_image/transparent_image.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+//import 'dart:async';
+//import 'dart:io';
 
 class BoardScreen extends StatelessWidget {
   final String texto;
@@ -27,9 +30,9 @@ class BoardScreen extends StatelessWidget {
           alignment: Alignment.center,
         ),
       ),
-      _HomepageWIcons(context),
+      _homepageWIcons(context),
       //  _HomepageWords(context),
-      _HomepageWContent(context)
+      _homepageWContent(context)
       /*    
       Container(
           decoration: BoxDecoration(
@@ -43,7 +46,7 @@ class BoardScreen extends StatelessWidget {
 }
 
 //example words and image to float over background
-Widget _HomepageWords(BuildContext context) {
+Widget _homepageWords(BuildContext context) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +97,7 @@ Widget _HomepageWords(BuildContext context) {
   );
 }
 
-Widget _HomepageWIcons(BuildContext context) {
+Widget _homepageWIcons(BuildContext context) {
   return Container(
     height: 57.6,
     margin: EdgeInsets.only(top: 28.8, left: 28.8, right: 28.8),
@@ -105,11 +108,13 @@ Widget _HomepageWIcons(BuildContext context) {
           onTap: () {
             // Navigator.of(context).pop();
             // Share.share('check out my website https://example.com');
+
             Share.share(
                 'check out my website https://github.com/Joaosilgo/flutter-app',
                 subject: 'Look what I made!');
 
-            // Share.shareFiles(['assets/shared-file.jpg'], text: 'Great picture');
+            //  Share.shareFiles(['assets/shared-file.jpg'], text: 'Great picture');
+            //  Share.shareFiles(['assets/shared-file.jpg'], text: 'Great picture');
           },
           child: Container(
             height: 57.6,
@@ -130,7 +135,7 @@ Widget _HomepageWIcons(BuildContext context) {
   );
 }
 
-Widget _HomepageWContent(BuildContext context) {
+Widget _homepageWContent(BuildContext context) {
   return Align(
       alignment: Alignment.bottomLeft,
       child: Container(
@@ -142,7 +147,7 @@ Widget _HomepageWContent(BuildContext context) {
               Padding(
                 padding: EdgeInsets.only(top: 19.2),
                 child: Text(
-                  'TagLine',
+                  'Flutter BLE',
                   maxLines: 2,
                   style: TextStyle(
                       fontSize: 42.6,
@@ -153,7 +158,7 @@ Widget _HomepageWContent(BuildContext context) {
               Padding(
                 padding: EdgeInsets.only(top: 19.2),
                 child: Text(
-                  'ESP32 Bluetooth Low Energy. This is highly recommended for the Internet of Things.\nThis is because its power consumption is miniscule, ESP32 will become a Bluetooth server. This will connect a smartphone application to send and receive data.',
+                  'ESP32 Bluetooth Low Energy. This is highly recommended for the Internet of Things.\nThis is because its power consumption is miniscule, ESP32 will become a Bluetooth server. This will connect a smartphone application to send and receive data.\nThings that we will cover in this App: \n',
                   maxLines: 3,
                   style: TextStyle(
                       fontSize: 17.2,
@@ -171,12 +176,12 @@ Widget _HomepageWContent(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text('Start from',
+                        Text('Check GitHub',
                             style: TextStyle(
                                 fontSize: 16.8,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white)),
-                        Text('\$ 10.0',
+                        Text(':) -->',
                             style: TextStyle(
                                 fontSize: 21.6,
                                 fontWeight: FontWeight.w700,

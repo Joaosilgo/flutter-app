@@ -5,6 +5,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_app/screens/widgets.dart';
 import 'package:flutter_app/screens/about.dart';
 import 'package:flutter_app/screens/board.dart';
+import 'package:flutter_app/screens/home.dart';
 import 'dart:convert' show utf8;
 
 class NewPageScreen extends StatelessWidget {
@@ -425,7 +426,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _telas = [
     BleScreen("Scan Ble"),
-    NewPageScreen("Home"),
+    // NewPageScreen("Home"),
+    Home("Home"),
     BoardScreen("Board"),
     AboutScreen()
   ];
